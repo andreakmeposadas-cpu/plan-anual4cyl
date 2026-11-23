@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Anual Interactivo - Colegio Montano</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul-principal: #1F3C88;
+            --azul-secundario: #3F72AF;
+            --blanco: #FFFFFF;
+            --amarillo-acento: #F2C94C;
+            --gris-fondo: #F4F7F6;
+            --texto-oscuro: #2C3E50;
+            --borde-tarjeta: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: var(--gris-fondo);
+            color: var(--texto-oscuro);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Principal */
+        header {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-montano {
+            max-height: 50px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        .header-info h1 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--amarillo-acento);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .header-info p {
+            font-size: 0.85rem;
+            color: var(--blanco);
+            margin-top: 2px;
+        }
+
+        .header-info span {
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .btn-fullscreen {
+            background-color: var(--amarillo-acento);
+            color: var(--azul-principal);
+            border: none;
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .btn-fullscreen:hover {
+            background-color: #e0b83b;
+            transform: translateY(-1px);
+        }
+
+        /* Nav Pestañas */
+        nav.tabs-nav {
+            background-color: var(--azul-secundario);
+            display: flex;
+            overflow-x: auto;
+            padding: 0 16px;
+            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.1);
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            color: var(--blanco);
+            padding: 14px 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            border-bottom: 4px solid transparent;
+            opacity: 0.85;
+        }
+
+        .tab-button:hover {
+            opacity: 1;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-button.active {
+            color: var(--azul-principal);
+            background-color: var(--amarillo-acento);
+            font-weight: 700;
+            border-bottom: 4px solid var(--azul-principal);
+            opacity: 1;
+        }
+
+        /* Contenedor Principal */
+        main.container {
+            flex: 1;
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Estilos de Tarjetas y Secciones */
+        .card {
+            background-color: var(--blanco);
+            border-radius: 8px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--azul-principal);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            color: var(--azul-principal);
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            border-bottom: 2px solid var(--gris-fondo);
+            padding-bottom: 8px;
+            font-style: italic;
+        }
+
+        .section-subtitle {
+            color: var(--azul-secundario);
+            font-size: 1.1rem;
+            margin: 16px 0 10px 0;
+            font-style: italic;
+        }
+
+        p, li {
+            line-height: 1.6;
+            color: #4A5568;
+            font-size: 0.95rem;
+        }
+
+        ul, ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        /* Grid System */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        /* Badge Estilos */
+        .badge {
+            display: inline-block;
+            background-color: #EBF8FF;
+            color: var(--azul-secundario);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        /* Estilos específicos de Unidades y Tablas */
+        .unit-card {
+            background: var(--blanco);
+            border: 1px solid var(--borde-tarjeta);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .unit-header {
+            background-color: var(--azul-principal);
+            color: var(--blanco);
+            padding: 12px 18px;
+            font-weight: 700;
+            font-style: italic;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .unit-body {
+            padding: 16px;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--borde-tarjeta);
+        }
+
+        th {
+            background-color: #F8FAFC;
+            color: var(--azul-principal);
+            font-style: italic;
+        }
+
+        tr:hover {
+            background-color: #F1F5F9;
+        }
+
+        /* Resaltados */
+        .highlight-box {
+            background-color: #FFFDF0;
+            border: 1px solid var(--amarillo-acento);
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+        }
+
+        .highlight-title {
+            color: var(--azul-principal);
+            font-weight: 700;
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 0.85rem;
+            color: #718096;
+            background-color: var(--blanco);
+            border-top: 1px solid var(--borde-tarjeta);
+            margin-top: auto;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-left">
+            <img src="https://admisiones.colegiomontano.edu.gt/assets/img/logo-cm-blanco.webp" alt="Logo Colegio Montano" class="logo-montano">
+            <div class="header-info">
+                <h1>Plan Anual de Comunicación y Lenguaje</h1>
+                <p><span>Grado:</span> Cuarto Primaria &nbsp;|&nbsp; <span>Docente:</span> Andrea Aguilar &nbsp;|&nbsp; <span>Ciclo Escolar:</span> 2027</p>
+            </div>
+        </div>
+        <button class="btn-fullscreen" onclick="toggleFullScreen()">
+            🖥️ <i>Pantalla Completa</i>
+        </button>
+    </header>
+
+    <!-- Navegación por Pestañas -->
+    <nav class="tabs-nav">
+        <button class="tab-button active" onclick="openTab(event, 'tab1')"><i>I) Descriptor</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab2')"><i>II) Objetivos</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab3')"><i>III) Competencias</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab4')"><i>IV) Indicadores</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab5')"><i>V) Métodos Didácticos</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab6')"><i>VI) Bibliografía</i></button>
+        <button class="tab-button" onclick="openTab(event, 'tab7')"><i>VII) Contenidos</i></button>
+    </nav>
+
+    <!-- Contenido -->
+    <main class="container">
+
+        <!-- TAB 1: DESCRIPTOR -->
+        <section id="tab1" class="tab-content active">
+            <div class="card">
+                <h2 class="card-title"><i>I) DESCRIPTOR DEL CURSO DE COMUNICACIÓN Y LENGUAJE</i></h2>
+                <p>Se pretende propiciar el espacio en el cual los alumnos y las alumnas aprenden funciones, significados, normas del lenguaje, así como su utilidad como herramienta para apropiarse de la realidad e interactuar con ella. El curso comprende dos componentes esenciales:</p>
+                <br>
+                <div class="grid-2">
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>Componente 1: Escuchar, hablar y actitudes comunicativas</i></div>
+                        <p>Es el componente por medio del cual las y los estudiantes desarrollan las competencias que les servirán para recibir, producir y organizar mensajes orales en forma crítica y creativa para tomar decisiones individuales y grupales por medio del diálogo, así como la comprensión y respeto por la lengua materna y las lenguas que hablan miembros de otras culturas.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>Componente 2: Leer, escribir, creación y producción comunicativa</i></div>
+                        <p>Conforman el componente que desarrolla en los y las estudiantes la capacidad de identificar, procesar, organizar, produce y divulgar información escrita. La lectura ayuda a la formación del pensamiento, al desarrollo de la afectividad e imaginación y ayuda en la construcción de nuevos conocimientos. Leer y escribir requieren del desarrollo de competencias comunes; los aprendizajes en lectura apoyan a los aprendizajes en la producción de textos y viceversa.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: OBJETIVOS -->
+        <section id="tab2" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>II) OBJETIVOS GENERALES</i></h2>
+                <p>En el marco del modelo pedagógico del Colegio Montano, el curso de Comunicación y Lenguaje para Cuarto Primaria persigue los siguientes objetivos formativos:</p>
+                <br>
+                <ul>
+                    <li><i>Fomentar el pensamiento crítico y la comprensión lectora:</i> Capacitar a los estudiantes para interpretar, analizar y emitir juicios fundamentados sobre diversos tipos de textos orales, escritos y visuales.</li>
+                    <li><i>Desarrollar la producción escrita coherente y estructurada:</i> Estimular la creación de textos funcionales, narrativos, descriptivos y persuasivos con adecuada ortografía, gramática y cohesión.</li>
+                    <li><i>Fortalecer la comunicación oral y la escucha activa:</i> Promover el diálogo respetuoso, la expresión clara de ideas, opiniones y emociones en contextos formales e informales.</li>
+                    <li><i>Incentivar la creatividad y apreciación literaria:</i> Guiar al alumno en la exploración de textos literarios y formatos digitales para enriquecer su vocabulario y expresión personal.</li>
+                    <li><i>Dominio de normas lingüísticas y ortográficas:</i> Aplicar correctamente las reglas de acentuación, gramática, puntuación y análisis de oraciones en producciones propias.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 3: COMPETENCIAS -->
+        <section id="tab3" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>III) COMPETENCIAS</i></h2>
+                
+                <h3 class="section-subtitle"><i>Competencias Académicas del Área (Extraídas del Programa)</i></h3>
+                <ul>
+                    <li><i>Comprensión e Interpretación Mensajes:</i> Identifica e interpreta mensajes presentes en situaciones cotidianas, medios impresos y digitales.</li>
+                    <li><i>Diferenciación Contextual:</i> Diferencia formas de comunicación según el contexto, intenciones y los interlocutores.</li>
+                    <li><i>Expresión Oral e Interacción:</i> Formula preguntas, obtiene información y expresa opiniones fundamentadas mediante la comunicación oral respetuosa.</li>
+                    <li><i>Comprensión y Producción Lector/Escritora:</i> Aplica estrategias de lectura fluida y silenciosa, redactando párrafos y textos con coherencia, cohesión y correcta ortografía.</li>
+                    <li><i>Dominio Gramatical y Semántico:</i> Identifica, analiza y aplica clases de palabras (sustantivos, adjetivos, verbos, pronombres, adverbios) y estructura de oraciones en sus producciones.</li>
+                </ul>
+
+                <br>
+                <h3 class="section-subtitle"><i>Competencias CM (Institucionales Colegio Montano)</i></h3>
+                <div class="grid-4">
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>1. Pensamiento crítico y resolución de problemas</i></div>
+                        <p>Análisis de textos, diferenciación entre hechos y opiniones, e interpretación de intenciones comunicativas.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>2. Colaboración y trabajo en equipo</i></div>
+                        <p>Interacción efectiva en diálogos, círculos de lectura, técnicas grupales y proyectos colectivos.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>3. Competencias digitales</i></div>
+                        <p>Búsqueda y selección responsable de información en la Web y exploración de nuevos formatos de lectura.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>4. Comunicación efectiva</i></div>
+                        <p>Transmisión clara, fluida y coherente de ideas, sentimientos y exposiciones orales en público.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>5. Creatividad e innovación</i></div>
+                        <p>Creación de historietas, afiches, textos persuasivos, poemas y redacciones originales.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>6. Aprendizaje autónomo y adaptabilidad</i></div>
+                        <p>Uso autónomo del diccionario, estrategias de lectura silenciosa y autorregulación del proceso lector.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>7. Conciencia global y cultural</i></div>
+                        <p>Valoración de la diversidad lingüística, expresiones idiomáticas y lectura de contextos variados.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>8. Ética y ciudadanía digital</i></div>
+                        <p>Uso ético de fuentes de información digital, respeto por las opiniones ajenas y empatía comunicativa.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>9. Gestión emocional y resiliencia</i></div>
+                        <p>Reconocimiento y expresión escrita/oral de sentimientos, emociones y superación de retos de lectura.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>10. Conciencia ecológica y sostenibilidad</i></div>
+                        <p>Análisis y creación de mensajes publicitarios y campañas informativas con impacto social/ambiental.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>11. Desempeño de roles de liderazgo</i></div>
+                        <p>Asunción de roles activos en trabajos colaborativos, coordinaciones de grupo y debates guiados.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 4: INDICADORES DE LOGRO -->
+        <section id="tab4" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>IV) INDICADORES DE LOGRO</i></h2>
+                <p>Criterios de evaluación y emisión de juicios de desempeño para el estudiante de Cuarto Primaria:</p>
+                <br>
+                <ul>
+                    <li><i>Interpretación de Entorno:</i> Reacciona adecuadamente ante mensajes gráficos, auditivos y verbales presentes en su comunidad y medios de comunicación.</li>
+                    <li><i>Fluidez y Comprensión Lectoras:</i> Lee oralmente con adecuada entonación, pausas y velocidad; identifica ideas principales, secundarias e intención del autor en lecturas silenciosas.</li>
+                    <li><i>Estructuración Textual:</i> Redacta párrafos de diversos tipos (narrativos, descriptivos, instructivos, persuasivos) utilizando adecuadamente la mayúscula, la coma, la tilde y conectores lógicos.</li>
+                    <li><i>Uso Gramatical Preciso:</i> Clasifica y utiliza con exactitud sustantivos, artículos, adjetivos, pronombres, verbos y adverbios en la construcción y análisis de oraciones.</li>
+                    <li><i>Efectividad en la Exposición:</i> Organiza y expone oralmente temas de interés utilizando recursos apoyados en material visual, adecuado volumen y lenguaje gestual.</li>
+                    <li><i>Criterio Informativo:</i> Diferencia afirmaciones de hechos y opiniones en noticias, infografías y sitios web navegados.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 5: MÉTODOS DIDÁCTICOS -->
+        <section id="tab5" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>V) MÉTODOS DIDÁCTICOS (CONTENIDO FIJO INSTITUCIONAL)</i></h2>
+                <p>El Colegio Montano promueve un modelo activo-colaborativo centrado en la metodología del <i>Período Doble (70 minutos)</i> y enfoques constructivistas:</p>
+                <br>
+                <div class="grid-2">
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>1. Introducción Motivante (Activación)</i></div>
+                        <p>Exploración de presaberes mediante actividades lúdicas, dinamizaciones, preguntas generadoras y lluvia de ideas relacionadas con el tema diario.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>2. Trabajo Individual</i></div>
+                        <p>Espacio dedicado al desarrollo de potencialidades, ejercitación de habilidades lectoras, redacción personal, análisis de palabras y razonamiento autonomo.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>3. Trabajo en Equipo</i></div>
+                        <p>Interacción colaborativa con roles definidos bajo la consigna institucional: <i>"Todos para uno y uno para todos"</i>. Ejercicios en parejas, mesas de discusión y coevaluación.</p>
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title"><i>4. Plenaria y Cierre</i></div>
+                        <p>Exposición pública de hallazgos, diálogo socrático, consolidación de aprendizajes e indicación de lecturas previas en casa.</p>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle"><i>Metodologías Clave Institucionales</i></h3>
+                <ul>
+                    <li><i>Aprendizaje Basado en Proyectos (ABP):</i> Elaboración de periódicos escolares, creación de afiches, infografías y presentaciones grupales.</li>
+                    <li><i>Constructivismo:</i> El estudiante es el protagonista en la construcción de su propio conocimiento lingüístico y comunicativo.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 6: BIBLIOGRAFÍA -->
+        <section id="tab6" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>VI) BIBLIOGRAFÍA Y FUENTES DE REFERENCIA</i></h2>
+                <ul>
+                    <li><i>Texto Guía Institucional:</i> Serie de Comunicación y Lenguaje 4to Primaria, Edición Nova / Colegio Montano.</li>
+                    <li><i>Módulo de Lectura y Ortografía:</i> Sección <i>Lecturas Estelares</i> y <i>Ortografía en Órbita</i>, Cuarto Primaria.</li>
+                    <li><i>Diccionarios:</i> Diccionario de la Lengua Española (RAE) y Diccionarios Escolares de Sinónimos y Antónimos.</li>
+                    <li><i>Recursos Digitales:</i> Páginas informativas en la Web, plataformas educativas interactivas y cuentos digitales seleccionados.</li>
+                    <li><i>CNB:</i> Curriculum Nacional Base de Guatemala, Nivel Primario, Área de Comunicación y Lenguaje L1.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- TAB 7: CONTENIDOS -->
+        <section id="tab7" class="tab-content">
+            <div class="card">
+                <h2 class="card-title"><i>VII) CONTENIDOS CURRICULARES DESGLOSADOS POR UNIDAD</i></h2>
+                
+                <!-- UNIDAD 1 -->
+                <div class="unit-card" style="margin-bottom: 24px;">
+                    <div class="unit-header">
+                        <span>UNIDAD 1: Mensajes van y vienen</span>
+                        <span><i>Libro Págs. 14 - 63</i></span>
+                    </div>
+                    <div class="unit-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><i>Contenido / Tema</i></th>
+                                        <th><i>Competencia / Habilidad Desarrollada</i></th>
+                                        <th><i>Actividades Sugeridas</i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Los mensajes del entorno (pág. 14)</td>
+                                        <td>Identifica e interpreta mensajes en situaciones cotidianas.</td>
+                                        <td>Observar anuncios y avisos; crear un mensaje para un compañero.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diálogos formales e informales (pág. 16)</td>
+                                        <td>Diferencia formas de comunicación según el contexto.</td>
+                                        <td>Clasificar diálogos; representar conversaciones formales/informales.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>La entrevista (pág. 18)</td>
+                                        <td>Formula preguntas y obtiene información oral.</td>
+                                        <td>Preparar preguntas; entrevistar compañeros o familiares.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mensajes que leo / El periódico (págs. 20-22)</td>
+                                        <td>Comprende información escrita e intención de textos.</td>
+                                        <td>Analizar titulares; redactar una pequeña noticia escolar.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mensajes y reacciones sensoriales (pág. 24)</td>
+                                        <td>Relaciona mensajes con emociones y percepciones.</td>
+                                        <td>Observar imágenes; describir sensaciones y escribir emociones.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mensajes gráficos (pág. 26)</td>
+                                        <td>Interpreta imágenes, símbolos y elementos gráficos.</td>
+                                        <td>Interpretar señales; diseñar símbolos y afiches gráficos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Comunicación oral y sus elementos (pág. 28)</td>
+                                        <td>Reconoce los elementos del proceso comunicativo.</td>
+                                        <td>Identificar emisor, receptor, mensaje, canal y código.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Funciones del lenguaje (pág. 30)</td>
+                                        <td>Identifica la intención comunicativa del mensaje.</td>
+                                        <td>Clasificar mensajes informativos, expresivos y apelativos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Expresiones idiomáticas (pág. 34)</td>
+                                        <td>Comprende expresiones de significado no literal.</td>
+                                        <td>Investigar expresiones populares y crear oraciones con ellas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Opiniones personales (pág. 36)</td>
+                                        <td>Expresa opiniones claras, fundamentadas y respetuosas.</td>
+                                        <td>Debates sencillos; frases completas ("Yo pienso que...").</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Conversaciones y diálogos (pág. 38)</td>
+                                        <td>Participa respetuosamente en intercambios orales.</td>
+                                        <td>Conversaciones por parejas, dramatizaciones y juegos de rol.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lectura oral y silenciosa / Estelares (págs. 40-44)</td>
+                                        <td>Desarrolla fluidez, comprensión y entonación.</td>
+                                        <td>Lectura expresiva individual/parejas y preguntas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Párrafos y sus elementos / Estructura (págs. 46, 54)</td>
+                                        <td>Reconoce la estructura básica e idea principal del párrafo.</td>
+                                        <td>Colorear ideas principales/secundarias; ordenar párrafos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Formación de palabras (pág. 50)</td>
+                                        <td>Amplía vocabulario y comprende origen de palabras.</td>
+                                        <td>Familias de palabras y juegos de derivación.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Redacción de párrafos cortos (pág. 56)</td>
+                                        <td>Produce textos breves con coherencia y orden.</td>
+                                        <td>Redactar párrafos descriptivos y narrativos breves.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ortografía en órbita y Cierre (págs. 60-63)</td>
+                                        <td>Aplica normas de escritura e integra aprendizajes.</td>
+                                        <td>Dictados, corrección, Pulso Nova, Evaluación y Diario del astronauta.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNIDAD 2 -->
+                <div class="unit-card" style="margin-bottom: 24px;">
+                    <div class="unit-header">
+                        <span>UNIDAD 2: Comunico lo que pienso y siento</span>
+                        <span><i>Libro Págs. 66 - 117</i></span>
+                    </div>
+                    <div class="unit-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><i>Contenido / Tema</i></th>
+                                        <th><i>Competencia / Habilidad Desarrollada</i></th>
+                                        <th><i>Actividades Sugeridas</i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Textos funcionales e instructivos (págs. 66-68)</td>
+                                        <td>Comprende y produce instrucciones claras y funcionales.</td>
+                                        <td>Seguir/escribir recetas; ordenar instrucciones de juegos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Textos informativos (pág. 72)</td>
+                                        <td>Localiza, interpreta y organiza información relevante.</td>
+                                        <td>Subrayar ideas clave; responder preguntas de comprensión.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>El diccionario y sus acepciones (pág. 74)</td>
+                                        <td>Utiliza el diccionario para precisar vocabulario.</td>
+                                        <td>Buscar palabras de múltiple significado; diccionario personal.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sentimientos y emociones (pág. 78)</td>
+                                        <td>Expresa pensamientos y emociones mediante el lenguaje.</td>
+                                        <td>Redactar un diario de emociones; escribir mensajes positivos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Hechos y opiniones (pág. 80)</td>
+                                        <td>Diferencia información objetiva de opiniones.</td>
+                                        <td>Clasificar afirmaciones y analizar noticieros o noticias.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Estrategias de lectura silenciosa (pág. 84)</td>
+                                        <td>Aplica estrategias comprensivas autónomas.</td>
+                                        <td>Predicciones, preguntas antes/durante/después de leer.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuadros conceptuales e Infografías (págs. 86-90)</td>
+                                        <td>Organiza e interpreta información gráfica y jerárquica.</td>
+                                        <td>Convertir textos a cuadros conceptuales; diseñar infografías.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Información en la Web (pág. 92)</td>
+                                        <td>Busca y selecciona información digital responsablemente.</td>
+                                        <td>Analizar sitios web; comparar dos fuentes sencillas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sustantivos, Artículos y Adjetivos (págs. 96-102)</td>
+                                        <td>Identifica, clasifica y describe usando elementos gramaticales.</td>
+                                        <td>Clasificación, concordancia y descripción de personajes.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Diptongos, Hiatos y Acentuación (págs. 104-106)</td>
+                                        <td>Aplica reglas de silabeo y acentuación básica.</td>
+                                        <td>Separación en sílabas, colocación de tildes y concursos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Usos de la coma y Ortografía (págs. 108-117)</td>
+                                        <td>Utiliza puntuación en producciones escritas.</td>
+                                        <td>Enumeraciones, revisión de textos, Pulso Nova y Diario.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNIDAD 3 -->
+                <div class="unit-card" style="margin-bottom: 24px;">
+                    <div class="unit-header">
+                        <span>UNIDAD 3: El maravilloso viaje de la lectura</span>
+                        <span><i>Libro Págs. 120 - 165</i></span>
+                    </div>
+                    <div class="unit-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><i>Contenido / Tema</i></th>
+                                        <th><i>Competencia / Habilidad Desarrollada</i></th>
+                                        <th><i>Actividades Sugeridas</i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Textos literarios y narrativos (págs. 120-122)</td>
+                                        <td>Comprende estructura narrativa (inicio, nudo, desenlace).</td>
+                                        <td>Lectura de cuentos; identificación de personajes y final alternativo.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Historietas (pág. 128)</td>
+                                        <td>Interpreta lenguaje verbal y gráfico simultáneo.</td>
+                                        <td>Leer e identificar viñetas; crear una historieta propia.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Textos líricos (pág. 130)</td>
+                                        <td>Desarrolla sensibilidad e interpretación poética.</td>
+                                        <td>Identificar versos y estrofas; declamación y poemas cortos.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sinónimos, Antónimos y Homónimas (págs. 132-134)</td>
+                                        <td>Amplía vocabulario y precisa el significado de palabras.</td>
+                                        <td>Memoria de palabras, sustitución léxica e ilustraciones.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Lenguaje, lengua y habla (pág. 136)</td>
+                                        <td>Comprende dimensiones de la comunicación lingüística.</td>
+                                        <td>Comparar expresiones dialectales y situaciones comunicativas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Cuentos, anécdotas y Círculos de lectura (págs. 138-142)</td>
+                                        <td>Narra experiencias y comparte impresiones lectoras.</td>
+                                        <td>Contar anécdotas en orden; círculos de lectura compartida.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Pronombres, Verbos y Adverbios (págs. 148-154)</td>
+                                        <td>Identifica y utiliza sustitutos, acciones y circunstancias.</td>
+                                        <td>Reemplazo de nombres, conjugación y ampliación de frases.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Análisis y tipos de oraciones (págs. 156-165)</td>
+                                        <td>Reconoce sujeto, predicado y clases de oraciones.</td>
+                                        <td>Clasificar oraciones interrogativas, exclamativas y cierre de unidad.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- UNIDAD 4 -->
+                <div class="unit-card">
+                    <div class="unit-header">
+                        <span>UNIDAD 4: Leemos, escribimos y expresamos</span>
+                        <span><i>Consolidación y Producción</i></span>
+                    </div>
+                    <div class="unit-body">
+                        <div class="table-responsive">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th><i>Contenido / Tema</i></th>
+                                        <th><i>Competencia / Habilidad Desarrollada</i></th>
+                                        <th><i>Actividades Sugeridas</i></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Intención de párrafos y Textos persuasivos</td>
+                                        <td>Identifica propósitos comunicativos y argumentos.</td>
+                                        <td>Clasificar párrafos; analizar y crear anuncios publicitarios.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Claves del contexto y Propósito de lectura</td>
+                                        <td>Deduce significados desconocidos y establece metas lectoras.</td>
+                                        <td>Inferir vocabulario por contexto; ajustar la velocidad lectora.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Exposición / Conferencia y Discusión grupal</td>
+                                        <td>Organiza y comunica información en público de forma fluida.</td>
+                                        <td>Preparar exposiciones breves con material visual; mesas redondas.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Textos entretenidos y Fluidez lectora</td>
+                                        <td>Aumenta la velocidad, entonación y goce por la lectura.</td>
+                                        <td>Lectura dramatizada, adivinanzas, chistes y cronómetros de lectura.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Sujeto, Predicado y Concordancia Gramatical</td>
+                                        <td>Estructura oraciones gramaticalmente correctas.</td>
+                                        <td>Identificación de núcleo de sujeto/predicado; corrección de concordancia.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Palabras que unen ideas y Análisis Semántico</td>
+                                        <td>Enlaza párrafos mediante conectores con coherencia.</td>
+                                        <td>Uso de conectores de orden/causa; análisis del sentido oracional.</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ortografía en órbita y Cierre de Ciclo</td>
+                                        <td>Aplica normas en la producción final y autoevaluación.</td>
+                                        <td>Dictados integradores, revisión final de textos y evaluación de cierre.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p><i>Colegio Montano - Pizarra Digital de Planificación Anual &copy; Ciclo Escolar 2027</i></p>
+    </footer>
+
+    <!-- Script para Interactividad -->
+    <script>
+        // Función para cambiar entre pestañas
+        function openTab(evt, tabId) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabButtons = document.getElementsByClassName("tab-button");
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Función para pantalla completa
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    alert(`Error intentando activar pantalla completa: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
